@@ -27,6 +27,8 @@ export const JourneyPicker = ({ onJourneyChange }) => {
   const [cities, setCities] = useState([]);
   const [dates, setDates] = useState([]);
 
+  let journeyData = null;
+
   useEffect(() => {
     fetch('https://apps.kodim.cz/daweb/leviexpress/api/cities')
     .then(response => response.json())
@@ -44,6 +46,13 @@ export const JourneyPicker = ({ onJourneyChange }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(fromCity, toCity, date);
+    const apiUrl = `https://apps.kodim.cz/daweb/leviexpress/api/journey?fromCity=${fromCity}&toCity=${toCity}&date=${date}`;
+    fetch(apiUrl)
+    .then(response => response.json())
+    .then(data => {
+      journeyData = data.results;
+      console.log(journeyData)
+    })
   };
 
   return (
@@ -74,6 +83,7 @@ export const JourneyPicker = ({ onJourneyChange }) => {
             <button
               className="btn"
               type="submit"
+              disabled={fromCity && toCity && date ? false : true}
             >
               Vyhledat spoj
             </button>
