@@ -51,7 +51,7 @@ export const JourneyPicker = ({ onJourneyChange }) => {
     .then(response => response.json())
     .then(data => {
       journeyData = data.results;
-      console.log(journeyData)
+      onJourneyChange(journeyData);
     })
   };
 
