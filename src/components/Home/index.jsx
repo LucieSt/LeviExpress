@@ -9,9 +9,14 @@ export const Home = () => {
 
   const navigate = useNavigate();
   const [journey, setJourney] = useState(null);
+  const [ userSeat, setUserSeat ] = useState(null);
 
   const handleJourneyChange = (journeyData) => {
     setJourney(journeyData);
+  };
+
+  const handleSelect = (number) => {
+    setUserSeat(number)
   };
 
   const handleBuy = () => {
@@ -23,7 +28,7 @@ export const Home = () => {
       },
       body: JSON.stringify({
         action: 'create',
-        seat: journey.autoSeat,
+        seat: userSeat,
         journeyId: journey.journeyId,
       }),
     })
@@ -42,7 +47,7 @@ export const Home = () => {
       {journey && (
         <>
           <JourneyDetail journey={journey} />
-          <SeatPicker seats={journey.seats} journeyId={journey.journeyId} selectedSeat={journey.autoSeat}/>
+          <SeatPicker seats={journey.seats} journeyId={journey.journeyId} selectedSeat={userSeat} onSeatSelected={handleSelect}/>
           <div className="controls container btn-container">
             <button className="btn btn--big" type="button" onClick={handleBuy}>Rezervovat</button>
           </div>
