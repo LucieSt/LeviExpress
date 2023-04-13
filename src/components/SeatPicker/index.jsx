@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { SeatRow } from '../SeatRow';
 import './style.css';
 
-export const SeatPicker = ({ seats, journeyId }) => {
+export const SeatPicker = ({ seats, journeyId, selectedSeat }) => {
 
   return (
     <>
@@ -19,7 +19,7 @@ export const SeatPicker = ({ seats, journeyId }) => {
         <h2>Vyberte sedadlo</h2>
         <div className="seats">
           {seats.map((rowData, index) => {
-            return <SeatRow key={index} row={rowData}/>
+            return <SeatRow key={index} row={rowData} rowSelectedSeat={selectedSeat}/>
           })}
         </div>
       </div>
