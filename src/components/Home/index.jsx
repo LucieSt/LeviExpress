@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { JourneyPicker } from '../JourneyPicker';
 import { JourneyDetail } from '../JourneyDetail';
-import { SelectedSeat } from '../SelectedSeat';
+import { SeatPicker } from '../SeatPicker';
 import './style.css';
 
 export const Home = () => {
@@ -29,7 +29,6 @@ export const Home = () => {
     })
     .then(response => response.json())
     .then(data => {
-      console.log(data.results);
       const reservationId = data.results.reservationId;
       const reservationUrl = `/reservation/${reservationId}`;
       navigate(reservationUrl);
@@ -39,10 +38,11 @@ export const Home = () => {
   return (
     <main>
       <JourneyPicker onJourneyChange={handleJourneyChange} />
+      <SeatPicker />
       {journey && (
         <>
           <JourneyDetail journey={journey} />
-          <SelectedSeat number={journey.autoSeat} />
+          {/* <SeatPicker /> */}
           <div className="controls container btn-container">
             <button className="btn btn--big" type="button" onClick={handleBuy}>Rezervovat</button>
           </div>
